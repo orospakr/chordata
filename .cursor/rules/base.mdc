@@ -5,4 +5,4 @@ alwaysApply: false
 ---
 We're building a Swift library called Chordata (and example app to go with it) that adds a live web-based inspector to iOS (or even Mac) Core Data data, by means of a simple HTTP server.
 
-You can use the included MCP server to do a full build of the system. Build the ChorDataExample project.
+You can use the included MCP server to do a full build of the system. Build the ChorDataExample project, don't try to build the workspace associated with the SwiftPM package itself.
