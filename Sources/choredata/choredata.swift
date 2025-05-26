@@ -39,35 +39,11 @@ public final class ChoreDataManager {
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>ChoreData</title>
-                    <style>
-                        body {
-                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            height: 100vh;
-                            margin: 0;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            color: white;
-                        }
-                        .container {
-                            text-align: center;
-                            padding: 2rem;
-                            border-radius: 10px;
-                            background: rgba(255, 255, 255, 0.1);
-                            backdrop-filter: blur(10px);
-                            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-                        }
-                        h1 {
-                            font-size: 3rem;
-                            margin: 0;
-                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-                        }
-                    </style>
+                    <script src="https://cdn.tailwindcss.com"></script>
                 </head>
-                <body>
-                    <div class="container">
-                        <h1>Hello World!</h1>
+                <body class="font-sans flex justify-center items-center h-screen m-0 bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+                    <div class="text-center p-8 rounded-lg bg-white bg-opacity-10 backdrop-blur-md shadow-2xl">
+                        <h1 class="text-5xl m-0 drop-shadow-lg">Hello World!</h1>
                     </div>
                 </body>
                 </html>
