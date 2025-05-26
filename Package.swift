@@ -11,11 +11,17 @@ let package = Package(
             name: "choredata",
             targets: ["choredata"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/swhitty/FlyingFox.git", .upToNextMajor(from: "0.22.0")),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "choredata"),
+            name: "choredata",
+            dependencies: [
+                .product(name: "FlyingFox", package: "FlyingFox"),
+            ]),
         .testTarget(
             name: "choredataTests",
             dependencies: ["choredata"]
