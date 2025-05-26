@@ -6,13 +6,13 @@ import CoreData
 
 import FlyingFox
 
-/// A singleton class for managing long-running state in the choredata library.
+/// A singleton class for managing long-running state in the chordata library.
 /// This class is attributed to the main actor to ensure thread safety for UI operations.
 @MainActor
-public final class ChoreDataManager {
+public final class ChordataManager {
     
     /// The shared singleton instance
-    public static let shared = ChoreDataManager()
+    public static let shared = ChordataManager()
     
     /// Private initializer to prevent external instantiation
     private init() {}
@@ -22,7 +22,7 @@ public final class ChoreDataManager {
 
     private var persistentContainer: NSPersistentContainer?
     
-    /// Initialize the ChoreDataManager with any required setup
+    /// Initialize the ChordataManager with any required setup
     /// - Parameter configuration: Optional configuration parameters
     public func initialize(persistentContainer: NSPersistentContainer) {
         
@@ -38,7 +38,7 @@ public final class ChoreDataManager {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>ChoreData</title>
+                    <title>Chordata</title>
                     <script src="https://cdn.tailwindcss.com"></script>
                 </head>
                 <body class="font-sans flex justify-center items-center h-screen m-0 bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
@@ -59,6 +59,6 @@ public final class ChoreDataManager {
         }
 
 
-        print("ChoreData initialization complete")
+        print("Chordata initialization complete")
     }
 }

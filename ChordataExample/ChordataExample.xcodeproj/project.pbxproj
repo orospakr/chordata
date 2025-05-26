@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		494514E32DE420700048B7F8 /* choredata in Frameworks */ = {isa = PBXBuildFile; productRef = 494514E22DE420700048B7F8 /* choredata */; };
+		4928F3E02DE4992C009EA90B /* chordata in Frameworks */ = {isa = PBXBuildFile; productRef = 4928F3DF2DE4992C009EA90B /* chordata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				494514E32DE420700048B7F8 /* choredata in Frameworks */,
+				4928F3E02DE4992C009EA90B /* chordata in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,12 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4928F3DE2DE4992C009EA90B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		494514A92DE420370048B7F8 = {
 			isa = PBXGroup;
 			children = (
 				494514B42DE420370048B7F8 /* ChordataExample */,
 				494514C72DE420380048B7F8 /* ChordataExampleTests */,
 				494514D12DE420380048B7F8 /* ChordataExampleUITests */,
+				4928F3DE2DE4992C009EA90B /* Frameworks */,
 				494514B32DE420370048B7F8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -117,7 +125,7 @@
 			);
 			name = ChordataExample;
 			packageProductDependencies = (
-				494514E22DE420700048B7F8 /* choredata */,
+				4928F3DF2DE4992C009EA90B /* chordata */,
 			);
 			productName = ChordataExample;
 			productReference = 494514B22DE420370048B7F8 /* ChordataExample.app */;
@@ -202,7 +210,7 @@
 			mainGroup = 494514A92DE420370048B7F8;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				494514E12DE420700048B7F8 /* XCLocalSwiftPackageReference "../../choredata" */,
+				4928F3DD2DE498F1009EA90B /* XCLocalSwiftPackageReference "../../choredata" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 494514B32DE420370048B7F8 /* Products */;
@@ -571,16 +579,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		494514E12DE420700048B7F8 /* XCLocalSwiftPackageReference "../../choredata" */ = {
+		4928F3DD2DE498F1009EA90B /* XCLocalSwiftPackageReference "../../choredata" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../choredata;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		494514E22DE420700048B7F8 /* choredata */ = {
+		4928F3DF2DE4992C009EA90B /* chordata */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = choredata;
+			package = 4928F3DD2DE498F1009EA90B /* XCLocalSwiftPackageReference "../../choredata" */;
+			productName = chordata;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

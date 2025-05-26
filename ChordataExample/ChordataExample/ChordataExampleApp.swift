@@ -7,7 +7,7 @@
 
 import SwiftUI
 import os.log
-import choredata
+import chordata
 
 @main
 struct ChordataExampleApp: App {
@@ -15,7 +15,7 @@ struct ChordataExampleApp: App {
 
     init() {
         os_log("Starting Chordata Example app")
-        ChoreDataManager.shared.initialize(persistentContainer: persistenceController.container)
+        ChordataManager.shared.initialize(persistentContainer: persistenceController.container)
     }
 
     var body: some Scene {
