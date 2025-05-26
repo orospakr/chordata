@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import os.log
+import choredata
 
 @main
 struct ChordataExampleApp: App {
     let persistenceController = PersistenceController.shared
+
+    init() {
+        os_log("Starting Example app")
+        ChoreDataManager.shared.initialize(persistentContainer: persistenceController.container)
+    }
 
     var body: some Scene {
         WindowGroup {
