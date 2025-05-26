@@ -14,7 +14,7 @@ struct ChordataExampleApp: App {
     let persistenceController = PersistenceController.shared
 
     init() {
-        os_log("Starting Example app")
+        os_log("Starting Chordata Example app")
         ChoreDataManager.shared.initialize(persistentContainer: persistenceController.container)
     }
 
