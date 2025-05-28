@@ -1,10 +1,16 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-
 import Foundation
 import CoreData
 
 import FlyingFox
+
+//
+// Chordata is a library for inspecting Core Data models.
+// It provides a web interface for inspecting the models and their relationships.
+// It is designed to be used in a SwiftUI application.
+//
+// To use Chordata, you need to initialize it with a persistent container.
+// Then you can use the `ChordataManager` singleton to get the HTML content for the dashboard.
+//
 
 // MARK: - Data Models
 
