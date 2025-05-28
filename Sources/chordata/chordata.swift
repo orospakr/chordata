@@ -21,6 +21,7 @@ struct ModelData: Sendable, Codable {
     let entityCount: Int
     let attributes: [AttributeData]
     let relationships: [RelationshipData]
+    let instances: [ObjectInstanceData]
 }
 
 struct AttributeData: Sendable, Codable {
@@ -34,6 +35,11 @@ struct RelationshipData: Sendable, Codable {
     let destinationEntity: String
     let toMany: Bool
     let optional: Bool
+}
+
+struct ObjectInstanceData: Sendable, Codable {
+    let objectID: String
+    let attributeValues: [String: String]
 }
 
 /// Implementation class for managing Core Data inspection
@@ -83,19 +89,80 @@ final class ChordataManagerImpl: Sendable {
                 ))
             }
             
+            // Get object instances (limit to first 100 for performance)
+            let instances = await self.getObjectInstances(for: entityName, limit: 100)
+            
             let modelData = ModelData(
                 name: entityName,
                 attributeCount: attributes.count,
                 relationshipCount: relationships.count,
                 entityCount: entityCount,
                 attributes: attributes,
-                relationships: relationships
+                relationships: relationships,
+                instances: instances
             )
             
             modelsData.append(modelData)
         }
         
         return modelsData.sorted { $0.name < $1.name }
+    }
+    
+    /// Get object instances for a specific entity
+    func getObjectInstances(for entityName: String, limit: Int = 100) async -> [ObjectInstanceData] {
+        let context = persistentContainer.viewContext
+        var instances: [ObjectInstanceData] = []
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
+        fetchRequest.fetchLimit = limit
+        
+        do {
+            let objects = try context.fetch(fetchRequest)
+            
+            for object in objects {
+                var attributeValues: [String: String] = [:]
+                
+                // Get all attribute values
+                for (attributeName, _) in object.entity.attributesByName {
+                    let value = object.value(forKey: attributeName)
+                    attributeValues[attributeName] = self.formatAttributeValue(value)
+                }
+                
+                let instance = ObjectInstanceData(
+                    objectID: object.objectID.uriRepresentation().absoluteString,
+                    attributeValues: attributeValues
+                )
+                
+                instances.append(instance)
+            }
+        } catch {
+            print("Error fetching instances for \(entityName): \(error)")
+        }
+        
+        return instances
+    }
+    
+    /// Format attribute value for display
+    private func formatAttributeValue(_ value: Any?) -> String {
+        guard let value = value else { return "nil" }
+        
+        switch value {
+        case let date as Date:
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            return formatter.string(from: date)
+        case let decimal as NSDecimalNumber:
+            return decimal.stringValue
+        case let data as Data:
+            return "\(data.count) bytes"
+        case let uuid as UUID:
+            return uuid.uuidString
+        case let url as URL:
+            return url.absoluteString
+        default:
+            return String(describing: value)
+        }
     }
     
     /// Convert Core Data attribute type to string representation
@@ -118,8 +185,6 @@ final class ChordataManagerImpl: Sendable {
         @unknown default: return "Unknown"
         }
     }
-    
-
 }
 
 /// Web server for the Chordata Core Data inspector

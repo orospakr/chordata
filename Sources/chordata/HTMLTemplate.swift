@@ -118,7 +118,7 @@ struct HTMLTemplate {
                         </div>
                         
                         <!-- Relationships -->
-                        <div x-show="model.relationships.length > 0">
+                        <div x-show="model.relationships.length > 0" class="mb-6">
                             <h4 class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">Relationships</h4>
                             <div class="overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
@@ -141,6 +141,47 @@ struct HTMLTemplate {
                                         </template>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Object Instances -->
+                        <div x-show="model.instances.length > 0">
+                            <h4 class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
+                                Object Instances 
+                                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    (showing first <span x-text="model.instances.length"></span> of <span x-text="model.entityCount"></span>)
+                                </span>
+                            </h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Object ID</th>
+                                            <template x-for="attribute in model.attributes" :key="attribute.name">
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" x-text="attribute.name"></th>
+                                            </template>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                                        <template x-for="instance in model.instances" :key="instance.objectID">
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                                                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 dark:text-gray-500 font-mono max-w-xs truncate" x-text="instance.objectID.split('/').pop()"></td>
+                                                <template x-for="attribute in model.attributes" :key="attribute.name">
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-xs truncate" x-text="instance.attributeValues[attribute.name] || 'nil'"></td>
+                                                </template>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Empty instances state -->
+                        <div x-show="model.instances.length === 0" class="mt-6">
+                            <h4 class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">Object Instances</h4>
+                            <div class="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                <div class="text-gray-400 dark:text-gray-500 text-lg mb-2">No instances found</div>
+                                <p class="text-gray-500 dark:text-gray-400">This entity has no data objects.</p>
                             </div>
                         </div>
                     </div>
