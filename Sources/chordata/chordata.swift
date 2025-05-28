@@ -3,44 +3,12 @@ import CoreData
 
 import FlyingFox
 
-//
 // Chordata is a library for inspecting Core Data models.
 // It provides a web interface for inspecting the models and their relationships.
 // It is designed to be used in a SwiftUI application.
 //
 // To use Chordata, you need to initialize it with a persistent container.
 // Then you can use the `ChordataManager` singleton to get the HTML content for the dashboard.
-//
-
-// MARK: - Data Models
-
-struct ModelData: Sendable, Codable {
-    let name: String
-    let attributeCount: Int
-    let relationshipCount: Int
-    let entityCount: Int
-    let attributes: [AttributeData]
-    let relationships: [RelationshipData]
-    let instances: [ObjectInstanceData]
-}
-
-struct AttributeData: Sendable, Codable {
-    let name: String
-    let type: String
-    let optional: Bool
-}
-
-struct RelationshipData: Sendable, Codable {
-    let name: String
-    let destinationEntity: String
-    let toMany: Bool
-    let optional: Bool
-}
-
-struct ObjectInstanceData: Sendable, Codable {
-    let objectID: String
-    let attributeValues: [String: String]
-}
 
 /// Implementation class for managing Core Data inspection
 final class ChordataManagerImpl: Sendable {
@@ -52,7 +20,6 @@ final class ChordataManagerImpl: Sendable {
     
     /// Generate the main dashboard HTML
     func generateDashboardHTML() async -> String {
-//        return ""
         return HTMLTemplate.dashboard
     }
     
