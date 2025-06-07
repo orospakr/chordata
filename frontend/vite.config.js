@@ -9,7 +9,13 @@ export default defineConfig(({ command, mode }) => {
       compilerOptions: {
         dev: true // Force development mode always
       },
-      hot: false // Disable HMR to avoid issues
+      hot: false, // Disable HMR to avoid issues
+      preprocess: [], // TypeScript preprocessing is handled by Vite
+      onwarn: (warning, handler) => {
+        // Handle TypeScript warnings
+        if (warning.code === 'css-unused-selector') return;
+        handler(warning);
+      }
     })],
     define: {
       __DEV__: true, // Define development flag
@@ -17,8 +23,8 @@ export default defineConfig(({ command, mode }) => {
     },
     mode: 'development', // Force development mode
     build: {
-      outDir: '../Sources/chordata',
-      emptyOutDir: false,
+      outDir: '../Sources/chordata/assets',
+      emptyOutDir: true,
       rollupOptions: {
         output: {
           // Generate simple filenames for easier Swift integration

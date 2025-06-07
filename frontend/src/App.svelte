@@ -1,17 +1,18 @@
-<script>
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import type { ModelData } from './types';
   import Header from './components/Header.svelte';
   import ModelsOverview from './components/ModelsOverview.svelte';
   import ModelDetails from './components/ModelDetails.svelte';
   import LoadingState from './components/LoadingState.svelte';
   import ErrorState from './components/ErrorState.svelte';
 
-  let models = $state([]);
+  let models = $state<ModelData[]>([]);
   let loading = $state(true);
-  let error = $state(null);
-  let selectedModel = $state(null);
+  let error = $state<string | null>(null);
+  let selectedModel = $state<string | null>(null);
 
-  // Load models on component mount
-  $effect(() => {
+  onMount(() => {
     loadModels();
   });
 
@@ -27,14 +28,14 @@
       
       models = await response.json();
     } catch (err) {
-      error = err.message || 'Failed to load models';
+      error = err instanceof Error ? err.message : 'Failed to load models';
       console.error('Error loading models:', err);
     } finally {
       loading = false;
     }
   }
 
-  function selectModel(modelName) {
+  function selectModel(modelName: string) {
     selectedModel = selectedModel === modelName ? null : modelName;
   }
 </script>
@@ -48,7 +49,7 @@
     {:else if error}
       <ErrorState {error} />
     {:else}
-      <ModelsOverview {models} {selectedModel} onselectmodel={selectModel} />
+      <ModelsOverview {models} onselectModel={(modelName) => selectModel(modelName)} {selectedModel} />
       
       {#if selectedModel}
         <ModelDetails {models} {selectedModel} />
