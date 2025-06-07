@@ -20,7 +20,23 @@ final class ChordataManagerImpl: Sendable {
     
     /// Load static file from bundle resources
     func loadStaticFile(named fileName: String) -> Data? {
-        guard let url = Bundle.module.url(forResource: fileName, withExtension: nil) else {
+        var resourceURL: URL?
+        
+        // Debug: List all resources in bundle
+        if let resourcePath = Bundle.module.resourcePath {
+            print("Bundle resource path: \(resourcePath)")
+            do {
+                let resources = try FileManager.default.contentsOfDirectory(atPath: resourcePath.appending("/assets"))
+                print("Available resources: \(resources)")
+            } catch {
+                print("Error listing resources: \(error)")
+            }
+        }
+        
+        // Handle special case for source maps with double extensions
+        resourceURL = Bundle.module.url(forResource: "assets/\(fileName)", withExtension: nil)
+
+        guard let url = resourceURL else {
             print("Could not find resource: \(fileName)")
             return nil
         }
@@ -217,6 +233,20 @@ final class ChordataWebServer: Sendable {
                 body: cssData
             )
         }
+        
+        // Serve source maps for debugging
+        await server.appendRoute("/app.js.map") { @Sendable [manager] request in
+            guard let mapData = manager.loadStaticFile(named: "app.js.map") else {
+                return HTTPResponse(statusCode: .notFound)
+            }
+            
+            return HTTPResponse(
+                statusCode: .ok,
+                headers: [.contentType: "application/json"],
+                body: mapData
+            )
+        }
+        
         
         // API route to get models data as JSON
         await server.appendRoute("/api/models") { @Sendable [manager] request in

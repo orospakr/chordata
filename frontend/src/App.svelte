@@ -1,17 +1,17 @@
 <script>
-  import { onMount } from 'svelte';
   import Header from './components/Header.svelte';
   import ModelsOverview from './components/ModelsOverview.svelte';
   import ModelDetails from './components/ModelDetails.svelte';
   import LoadingState from './components/LoadingState.svelte';
   import ErrorState from './components/ErrorState.svelte';
 
-  let models = [];
-  let loading = true;
-  let error = null;
-  let selectedModel = null;
+  let models = $state([]);
+  let loading = $state(true);
+  let error = $state(null);
+  let selectedModel = $state(null);
 
-  onMount(() => {
+  // Load models on component mount
+  $effect(() => {
     loadModels();
   });
 
@@ -48,7 +48,7 @@
     {:else if error}
       <ErrorState {error} />
     {:else}
-      <ModelsOverview {models} on:selectModel={(e) => selectModel(e.detail)} {selectedModel} />
+      <ModelsOverview {models} {selectedModel} onselectmodel={selectModel} />
       
       {#if selectedModel}
         <ModelDetails {models} {selectedModel} />

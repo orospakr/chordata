@@ -1,8 +1,7 @@
 <script>
-  export let models;
-  export let selectedModel;
+  let { models, selectedModel } = $props();
   
-  $: currentModel = models.find(m => m.name === selectedModel);
+  const currentModel = $derived(models.find(m => m.name === selectedModel));
 </script>
 
 {#if currentModel}

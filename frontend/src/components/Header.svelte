@@ -1,9 +1,8 @@
 <script>
-  import { onMount } from 'svelte';
-  
-  let darkMode = false;
+  let darkMode = $state(false);
 
-  onMount(() => {
+  // Initialize dark mode on component mount
+  $effect(() => {
     // Initialize dark mode from localStorage or system preference
     darkMode = localStorage.getItem('darkMode') === 'true' || 
       (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -33,7 +32,7 @@
   
   <!-- Dark Mode Toggle -->
   <button 
-    on:click={toggleDarkMode}
+    onclick={toggleDarkMode}
     class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
     title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
   >

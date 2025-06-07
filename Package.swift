@@ -27,9 +27,10 @@ let package = Package(
                 .product(name: "FlyingFox", package: "FlyingFox"),
             ],
             resources: [
-                .process("index.html"),
-                .process("app.js"),
-                .process("app.css")
+                .copy("assets"),
+//                .process("app.js"),
+//                .process("app.css"),
+//                .copy("app_js.map")
             ]),
         .testTarget(
             name: "chordataTests",

@@ -1,13 +1,8 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  
-  export let models;
-  export let selectedModel;
-  
-  const dispatch = createEventDispatcher();
+  let { models, selectedModel, onselectmodel } = $props();
   
   function selectModel(modelName) {
-    dispatch('selectModel', modelName);
+    onselectmodel?.(modelName);
   }
 </script>
 
@@ -26,7 +21,7 @@
           </div>
           <div class="mt-3">
             <button 
-              on:click={() => selectModel(model.name)}
+              onclick={() => selectModel(model.name)}
               class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium transition-colors duration-200"
             >
               {selectedModel === model.name ? 'Hide Details' : 'View Details →'}
