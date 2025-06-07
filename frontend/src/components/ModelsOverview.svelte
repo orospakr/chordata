@@ -1,7 +1,13 @@
-<script>
-  let { models, selectedModel, onselectmodel } = $props();
+<script lang="ts">
+  import type { ModelData } from '../types';
   
-  function selectModel(modelName) {
+  let { models, selectedModel, onselectmodel }: {
+    models: ModelData[];
+    selectedModel: string | null;
+    onselectmodel: (modelName: string) => void;
+  } = $props();
+  
+  function selectModel(modelName: string) {
     onselectmodel?.(modelName);
   }
 </script>

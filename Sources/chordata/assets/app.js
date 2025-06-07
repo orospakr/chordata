@@ -2382,7 +2382,7 @@ function App($$anchor, $$props) {
             get models() {
               return get(models);
             },
-            onselectModel: (modelName) => selectModel(modelName),
+            onselectmodel: (modelName) => selectModel(modelName),
             get selectedModel() {
               return get(selectedModel);
             }

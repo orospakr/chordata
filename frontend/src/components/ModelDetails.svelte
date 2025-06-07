@@ -1,7 +1,12 @@
-<script>
-  let { models, selectedModel } = $props();
+<script lang="ts">
+  import type { ModelData } from '../types';
   
-  const currentModel = $derived(models.find(m => m.name === selectedModel));
+  let { models, selectedModel }: {
+    models: ModelData[];
+    selectedModel: string | null;
+  } = $props();
+  
+  const currentModel = $derived(models.find((m: ModelData) => m.name === selectedModel));
 </script>
 
 {#if currentModel}

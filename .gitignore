@@ -9,3 +9,4 @@ DerivedData/
 
 # Frontend dependencies
 frontend/node_modules/
+.yarn/

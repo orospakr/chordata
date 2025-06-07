@@ -49,7 +49,7 @@
     {:else if error}
       <ErrorState {error} />
     {:else}
-      <ModelsOverview {models} onselectModel={(modelName) => selectModel(modelName)} {selectedModel} />
+      <ModelsOverview {models} onselectmodel={(modelName: string) => selectModel(modelName)} {selectedModel} />
       
       {#if selectedModel}
         <ModelDetails {models} {selectedModel} />
