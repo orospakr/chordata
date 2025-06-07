@@ -18,9 +18,19 @@ final class ChordataManagerImpl: Sendable {
         self.persistentContainer = persistentContainer
     }
     
-    /// Generate the main dashboard HTML
-    func generateDashboardHTML() async -> String {
-        return HTMLTemplate.dashboard
+    /// Load static file from bundle resources
+    func loadStaticFile(named fileName: String) -> Data? {
+        guard let url = Bundle.module.url(forResource: fileName, withExtension: nil) else {
+            print("Could not find resource: \(fileName)")
+            return nil
+        }
+        
+        do {
+            return try Data(contentsOf: url)
+        } catch {
+            print("Error loading resource \(fileName): \(error)")
+            return nil
+        }
     }
     
     /// Get models data from the persistent container
@@ -161,18 +171,50 @@ final class ChordataWebServer: Sendable {
     
     init(manager: ChordataManagerImpl) {
         self.manager = manager
-        self.server = HTTPServer(port: 8080)
+        self.server = HTTPServer(port: 3290)
     }
     
     func start() async {
-        // Main dashboard route
+        // Main dashboard route - serve index.html
         await server.appendRoute("/") { @Sendable [manager] request in
-            let htmlContent = await manager.generateDashboardHTML()
+            guard let htmlData = manager.loadStaticFile(named: "index.html") else {
+                return HTTPResponse(
+                    statusCode: .notFound,
+                    headers: [.contentType: "text/plain"],
+                    body: "Frontend not found".data(using: .utf8) ?? Data()
+                )
+            }
             
             return HTTPResponse(
                 statusCode: .ok,
                 headers: [.contentType: "text/html; charset=utf-8"],
-                body: htmlContent.data(using: .utf8) ?? Data()
+                body: htmlData
+            )
+        }
+        
+        // Serve app.js
+        await server.appendRoute("/app.js") { @Sendable [manager] request in
+            guard let jsData = manager.loadStaticFile(named: "app.js") else {
+                return HTTPResponse(statusCode: .notFound)
+            }
+            
+            return HTTPResponse(
+                statusCode: .ok,
+                headers: [.contentType: "application/javascript"],
+                body: jsData
+            )
+        }
+        
+        // Serve app.css
+        await server.appendRoute("/app.css") { @Sendable [manager] request in
+            guard let cssData = manager.loadStaticFile(named: "app.css") else {
+                return HTTPResponse(statusCode: .notFound)
+            }
+            
+            return HTTPResponse(
+                statusCode: .ok,
+                headers: [.contentType: "text/css"],
+                body: cssData
             )
         }
         

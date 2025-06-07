@@ -25,6 +25,11 @@ let package = Package(
             name: "chordata",
             dependencies: [
                 .product(name: "FlyingFox", package: "FlyingFox"),
+            ],
+            resources: [
+                .process("index.html"),
+                .process("app.js"),
+                .process("app.css")
             ]),
         .testTarget(
             name: "chordataTests",
