@@ -63,7 +63,7 @@ That's it! 🎉 Chordata will automatically start serving the dashboard on port 
 
 ## 📋 Requirements
 
-- iOS 17.0+ / macOS 14.0+
+- iOS 16.0+ / macOS 14.0+
 - Swift 6.1+
 - Xcode 15.0+
 
